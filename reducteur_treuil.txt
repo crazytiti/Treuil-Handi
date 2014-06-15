@@ -1,9 +1,31 @@
-Idées de réduction treuil <-> potentiometre
-- engrenages		+ : fiable / précis						- : difficulté de réalisation pratique
-- courroie			+ : simplicité de fabrication			- : possibilité de glissement
-- courroie crantée	+ : plus simple que l'engrenage, fiable	- : nécéssite des roue crantées
-- utilisation d'un poteniometre multi-tour
-					+ : le plus simple, fiable / robuste	- : disponibilité ?
-- utilisation d'un potar magnétique mono-tour avec stockage du numéro de tour en eeprom (si on tourne de moins d'un tour sans alimentation c'est OK)
+Idï¿½es de rï¿½duction treuil <-> potentiometre
 
-Todo : determiner une plage de rapport de réduction (plutot 10:1 ou plutot 200:1 ?)
+Liaison mÃ©canique
+- engrenages		+ : fiable / prï¿½cis					- : difficultï¿½ de rï¿½alisation pratique
+- courroie		+ : simplicitï¿½ de fabrication				- : possibilitï¿½ de glissement
+- courroie crantï¿½e	+ : plus simple que l'engrenage, fiable			- : nï¿½cï¿½ssite des roue crantï¿½es
+
+
+Capteur
+- utilisation d'un poteniometre multi-tour
+		+ : le plus simple, fiable / robuste      mais  Ã©tanchÃ©itÃ© difficile
+	http://www.banggood.com/10K-Ohm-With-10-Turns-Counting-Dial-Rotary-Potentiometer-Pot-p-911382.html
+	
+- utilisation d'un potar magnï¿½tique mono-tour 
+	Code identique en utilisation joystick de commande et capteur de course
+	La partie mobile est l'aimant donc Ã©tanchÃ©itÃ© facile
+        Est capable de donner la position angulaire sur 1tour avec une prÃ©cision de 14 bits
+        
+        
+	avec stockage du numï¿½ro de tour en eeprom  si on fait faire plusieurs tours au capteur
+	en cas de rapport de rï¿½duction prÃ©voir moins de 1/10 
+
+	http://www.ams.com/eng/Products/Position-Sensors/Magnetic-Rotary-Position-Sensors
+	AS5048A ou AS5048B 
+	Du code existe pour le AS5040 : https://github.com/georgeredinger/CantKeel
+	
+Aimant : pas commun car les pÃ´les doivent Ãªtre diamÃ©tralement opposÃ©s
+	Fournisseurs :
+	http://www.powermagnetshop.com/disques/270/aimant-6x2-5mm-diametral
+	http://www.first4magnets.com/circular-disc-rod-magnets-c34/6mm-dia-x-1mm-thick-diametrically-magnetised-n42-neodymium-magnet-p2681
+	
