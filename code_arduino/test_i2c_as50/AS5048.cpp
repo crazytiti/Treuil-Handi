@@ -5,14 +5,12 @@
 #define adr_pos2  254  // 0 à 5
 
 void init_as5048(void)
-//init du bus
 {
  Wire.begin();        // join i2c bus (address optional for master)
  TWBR = 1;            // I2C max speed 
 }
   
 int read_as5048(char adr)
-//renvoie la valeur de l'angle de 0 à 16383 (14 bits)
 {
   int c;
   
