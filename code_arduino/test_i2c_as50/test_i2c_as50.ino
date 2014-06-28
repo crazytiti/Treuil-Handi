@@ -15,7 +15,7 @@ void loop()
  signed int nb_tour;
  signed int pos, old_pos;
  //init
- ee_lit(adr_eeprom_nb_tour, nb_tour, 4);
+ ee_lit(adr_eeprom_nb_tour, (char*)&nb_tour, 4);
  pos = read_as5048(adr_enc1);
  old_pos = pos;
  
@@ -25,12 +25,12 @@ void loop()
    if (pos - old_pos > 8191)
    {
      nb_tour -=1;
-     ee_ecrit(adr_eeprom_nb_tour, nb_tour, 4);
+     ee_ecrit(adr_eeprom_nb_tour, (char*)&nb_tour, 4);
    }
    if (old_pos - pos > 8191)
    {
      nb_tour +=1;
-     ee_ecrit(adr_eeprom_nb_tour, nb_tour, 4);
+     ee_ecrit(adr_eeprom_nb_tour, (char*)&nb_tour, 4);
    }
    old_pos = pos;
    
