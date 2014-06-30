@@ -39,8 +39,9 @@ float compteur::get_tour()
     ee_ecrit(adr_eeprom, (char*)&nb_tour, 4);
   }
   old_pos = pos;
-  
+
   r = pos;
   r = nb_tour + r / 16383;
   return r;
 }
+

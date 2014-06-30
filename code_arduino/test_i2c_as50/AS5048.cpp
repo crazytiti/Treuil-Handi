@@ -6,14 +6,14 @@
 
 void init_as5048(void)
 {
- Wire.begin();        // join i2c bus (address optional for master)
- TWBR = 1;            // I2C max speed 
+  Wire.begin();        // join i2c bus (address optional for master)
+  TWBR = 1;            // I2C max speed 
 }
-  
+
 int read_as5048(char adr)
 {
   int c;
-  
+
   Wire.beginTransmission(adr); // transmit to device 
   Wire.write(adr_pos2);             // sends value byte  
   Wire.endTransmission();
@@ -32,3 +32,4 @@ int read_as5048(char adr)
   }
   return c;
 }
+
