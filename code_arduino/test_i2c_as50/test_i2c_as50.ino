@@ -4,6 +4,7 @@
 #include "compteur.h"
 #include "moteur.h"
 
+#define button_pin  12
 #define moteur_pin  13
 #define adr_enc1  64
 #define adr_enc2  65
@@ -16,6 +17,7 @@ moteur moteur_treuil;
 
 void setup()
 {
+  pinMode(button_pin, INPUT_PULLUP);
   Serial.begin(9600);  // start serial for output
   potar.init();
   treuil.init();
@@ -33,13 +35,20 @@ void loop()
     r = potar.get_tour();
     t = treuil.get_tour();
     moteur_treuil.marche(0,r*20);
-    //delay(1);
-    if (i > 250)
+    if (!digitalRead(button_pin))
+    {
+      while(!digitalRead(button_pin));
+      potar.raz();
+      treuil.raz();
+    }
+    if (i > 150)
     {
       Serial.print("\nr:");
       Serial.print(r);
       Serial.print(" t:");
       Serial.print(t);
+      Serial.print(" boutton : ");
+      Serial.print(digitalRead(button_pin));
       i = 0;
     }
     i++;
