@@ -1,3 +1,6 @@
+#include "AS5048.h"
+#include "eeprom.h"
+
 class compteur
 {
 public:

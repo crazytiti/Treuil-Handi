@@ -1,5 +1,3 @@
-#include "AS5048.h"
-#include "eeprom.h"
 #include "compteur.h"
 
 compteur::compteur(void)

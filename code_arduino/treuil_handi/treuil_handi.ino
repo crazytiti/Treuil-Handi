@@ -17,7 +17,8 @@
 #define adr_eeprom_pot_min  20
 #define adr_eeprom_pot_neutre  24
 
-treuil treuil_1(button_pin, moteur_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min, adr_eeprom_pot_max, adr_eeprom_pot_min, adr_eeprom_pot_neutre);
+treuil treuil_1(button_pin, moteur_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min,
+                adr_eeprom_pot_max, adr_eeprom_pot_min, adr_eeprom_pot_neutre);
 
 void setup()
 {
@@ -28,7 +29,7 @@ void setup()
 void loop()
 {
   float r,t;
-  int tempo_calib, i;
+  int tempo_calib, i=0;
   
   tempo_calib = 0;
   while(tempo_calib < 500)   //phase calibration
@@ -36,6 +37,7 @@ void loop()
     if (!digitalRead(button_pin))
     {
       while(!digitalRead(button_pin));    //attente relachement boutton
+      delay(tempo_rebond);                    //anti-rebond
       treuil_1.calibration();
       tempo_calib = 500;    //on sort de la boucle si calibration
     }
@@ -60,8 +62,19 @@ void loop()
       Serial.print(r);
       Serial.print(" t:");
       Serial.print(t);
-      Serial.print(" boutton : ");
+      Serial.print(" bt:");
       Serial.print(digitalRead(button_pin));
+      Serial.print(" min:");
+      Serial.print(treuil_1.pot_min);
+      Serial.print(" max:");
+      Serial.print(treuil_1.pot_max);
+      Serial.print(" nt:");
+      Serial.print(treuil_1.pot_neutre);
+      Serial.print(" t_mn:");
+      Serial.print(treuil_1.treuil_min);
+      Serial.print(" t_mx:");
+      Serial.print(treuil_1.treuil_max);
+      
       i = 0;
     }
     i++;

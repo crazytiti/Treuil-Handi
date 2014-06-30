@@ -1,5 +1,4 @@
-#include "moteur.h"
-#include <Servo.h> 
+#include "moteur.h" 
 
 Servo myservo;
 

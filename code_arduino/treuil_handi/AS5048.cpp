@@ -1,5 +1,5 @@
 //lib pour capteur magnétique AS5048B : I2C
-#include <Wire.h>
+#include "AS5048.h"
 
 #define adr_pos1  255  // bits 6 à 13 (inverse dans la doc)
 #define adr_pos2  254  // bits 0 à 5
@@ -12,7 +12,7 @@ void init_as5048(void)
 
 int read_as5048(char adr)
 {
-  int c;
+  int c=0;
   //recuperation du premier lot de bits
   Wire.beginTransmission(adr); // transmit to device 
   Wire.write(adr_pos2);             // envoit de l'adresse a lire 
