@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 30/06/2014 12:20:45
+EESchema Schematic File Version 2  date 02/07/2014 22:55:28
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "30 jun 2014"
+Date "2 jul 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -371,4 +371,50 @@ Wire Wire Line
 	3550 1600 4900 1600
 Wire Wire Line
 	4900 1600 4900 1900
+$Comp
+L R R1
+U 1 1 53B47095
+P 4600 3350
+F 0 "R1" V 4680 3350 40  0000 C CNN
+F 1 "470" V 4607 3351 40  0000 C CNN
+F 2 "~" V 4530 3350 30  0000 C CNN
+F 3 "~" H 4600 3350 30  0000 C CNN
+	1    4600 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R2
+U 1 1 53B470A4
+P 4850 3350
+F 0 "R2" V 4930 3350 40  0000 C CNN
+F 1 "470" V 4857 3351 40  0000 C CNN
+F 2 "~" V 4780 3350 30  0000 C CNN
+F 3 "~" H 4850 3350 30  0000 C CNN
+	1    4850 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L 3V3 #PWR?
+U 1 1 53B470D1
+P 4700 3000
+F 0 "#PWR?" H 4700 3100 40  0001 C CNN
+F 1 "3V3" H 4700 3125 40  0000 C CNN
+F 2 "" H 4700 3000 60  0000 C CNN
+F 3 "" H 4700 3000 60  0000 C CNN
+	1    4700 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 3600 4600 3700
+Connection ~ 4600 3700
+Wire Wire Line
+	4850 3600 4850 3800
+Connection ~ 4850 3800
+Wire Wire Line
+	4600 3000 4850 3000
+Wire Wire Line
+	4600 3000 4600 3100
+Wire Wire Line
+	4850 3000 4850 3100
+Connection ~ 4700 3000
 $EndSCHEMATC
