@@ -102,8 +102,8 @@ void treuil::marche()
       {pot_value = 100;}
       if (pot_value < -100)
       {pot_value = -100;}
-      Serial.print(" pot_v : "); //debug
-      Serial.print(pot_value);      //debug
+      //Serial.print(" pot_v : "); //debug
+      //Serial.print(pot_value);      //debug
       if (pot_value > zone_neutre)  //marche avant
       {
         if (c_treuil.get_tour() < treuil_max)

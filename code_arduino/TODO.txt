@@ -1,5 +1,11 @@
-1) aquisition position potentiometre
-2) aquisition position treuil
-3) gestion carte de puissance moteur
-4) fonctions de gestion de sauvegarde des fin de courses
-4) implantation de la machine à etat du synoptique
+		Quoi													OK ?
+1) aquisition position potentiometre							OK
+2) aquisition position treuil									OK
+3) gestion carte de puissance moteur							50%
+	pont en H
+	PPM 														OK
+4) fonctions de gestion de sauvegarde des fin de courses		OK
+4) implantation de la machine à etat du synoptique				50%
+	proportionelle												OK
+	impuslionelle
+5) gestion du choix impulsionelle / proportionelle				utilisation du bouton de calibration ?

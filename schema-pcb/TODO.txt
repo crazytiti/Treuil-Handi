@@ -1,3 +1,12 @@
 - schéma
+	arduino mega							OK
+	arduino micro r3						OK
+	arduino uno								?
 - PCB
+	arduino mega
+	arduino micro
+	arduino uno								?
 - ajout librairie arduino shield a kicad
+	mega									OK
+	micro									OK
+	uno										OK

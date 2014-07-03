@@ -50,7 +50,7 @@ void loop()
     r = treuil_1.c_potar.get_tour();
     t = treuil_1.c_treuil.get_tour();
     //treuil_1.moteur_treuil.marche(r*20);
-    //treuil_1.marche();
+    treuil_1.marche();
     if (!digitalRead(button_pin))
     {
       
@@ -75,7 +75,7 @@ void loop()
       Serial.print(treuil_1.treuil_min);
       Serial.print(" t_mx:");
       Serial.print(treuil_1.treuil_max);
-      treuil_1.marche();
+      
       i = 0;
     }
     i++;
