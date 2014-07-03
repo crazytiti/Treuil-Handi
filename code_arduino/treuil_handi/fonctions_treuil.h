@@ -13,10 +13,11 @@ public:
          char adr_joy_max, char adr_joy_min, char adr_joy_neutre);
   void calibration(void);                                                            //fonction de calibration manche et treuil
   void init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, char adr_eeprom_nb_tour_treuil);  //init du treuil
+  void marche(void);           //controle le moteur en fonction du potar suivant le mode choisi
   moteur moteur_treuil;        //instanciation moteur
   compteur c_potar;            //instanciation potar type compteur
   compteur c_treuil;           //instanciation treuil type compteur
-  
+  char mode;             // mode proportionel (0) ou impulsionel (1)
   float treuil_max, treuil_min, pot_max, pot_min, pot_neutre;
 private:
   char button_pin, moteur_pin, adr_ee_treuil_max, adr_ee_treuil_min,

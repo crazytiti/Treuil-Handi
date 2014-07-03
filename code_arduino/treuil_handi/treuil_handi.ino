@@ -5,17 +5,17 @@
 #include <Servo.h> 
 #include "fonctions_treuil.h"
 
-#define button_pin  12
-#define moteur_pin  13
-#define adr_enc1  64
-#define adr_enc2  65
-#define adr_eeprom_nb_tour_pot  0
-#define adr_eeprom_nb_tour_treuil  4
-#define adr_eeprom_treuil_max  8
-#define adr_eeprom_treuil_min  12
-#define adr_eeprom_pot_max  16
-#define adr_eeprom_pot_min  20
-#define adr_eeprom_pot_neutre  24
+#define button_pin  12              //broche du bouton
+#define moteur_pin  13              //broche du PPM
+#define adr_enc1  64                //adresse encodeur potar
+#define adr_enc2  65                //adresse encodeur treuil
+#define adr_eeprom_nb_tour_pot  0     //adresse en eeprom nb de tour du pot
+#define adr_eeprom_nb_tour_treuil  4  //adresse en eeprom nb de tour du treuil
+#define adr_eeprom_treuil_max  8      //adresse en eeprom position treuil maxi
+#define adr_eeprom_treuil_min  12     //adresse en eeprom position treuil mini
+#define adr_eeprom_pot_max  16        //adresse en eeprom position potar maxi
+#define adr_eeprom_pot_min  20        //adresse en eeprom position potar mini
+#define adr_eeprom_pot_neutre  24     //adresse en eeprom position potar neutre
 
 treuil treuil_1(button_pin, moteur_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min,
                 adr_eeprom_pot_max, adr_eeprom_pot_min, adr_eeprom_pot_neutre);
@@ -45,18 +45,19 @@ void loop()
     tempo_calib++;
   }
 
-  while(1)
+  while(1)    //marche normale
   {
     r = treuil_1.c_potar.get_tour();
     t = treuil_1.c_treuil.get_tour();
-    treuil_1.moteur_treuil.marche(0,-r*20);
+    //treuil_1.moteur_treuil.marche(r*20);
+    //treuil_1.marche();
     if (!digitalRead(button_pin))
     {
       
       treuil_1.c_potar.raz();
       treuil_1.c_treuil.raz();
     }
-    if (i > 150)
+    if (i > 250)
     {
       Serial.print("\nr:");
       Serial.print(r);
@@ -74,7 +75,7 @@ void loop()
       Serial.print(treuil_1.treuil_min);
       Serial.print(" t_mx:");
       Serial.print(treuil_1.treuil_max);
-      
+      treuil_1.marche();
       i = 0;
     }
     i++;
