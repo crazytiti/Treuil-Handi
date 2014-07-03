@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 02/07/2014 22:55:28
+EESchema Schematic File Version 2  date 03/07/2014 16:32:03
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -31,6 +31,7 @@ LIBS:contrib
 LIBS:valves
 LIBS:arduino_shieldsNCL
 LIBS:AS5048B_A
+LIBS:micro_r3_atmega32u4
 LIBS:treuil-handi-cache
 EELAYER 27 0
 EELAYER END
@@ -38,7 +39,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "2 jul 2014"
+Date "3 jul 2014"
 Rev ""
 Comp ""
 Comment1 ""
