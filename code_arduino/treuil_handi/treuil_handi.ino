@@ -6,7 +6,8 @@
 #include "fonctions_treuil.h"
 
 #define button_pin  12              //broche du bouton
-#define moteur_pin  13              //broche du PPM
+#define moteur_pin  11              //broche du PPM
+#define led_pin     13              //broche led
 #define adr_enc1  64                //adresse encodeur potar
 #define adr_enc2  65                //adresse encodeur treuil
 #define adr_eeprom_nb_tour_pot  0     //adresse en eeprom nb de tour du pot
@@ -49,13 +50,13 @@ void loop()
   {
     r = treuil_1.c_potar.get_tour();
     t = treuil_1.c_treuil.get_tour();
-    //treuil_1.moteur_treuil.marche(r*20);
     treuil_1.marche();
     if (!digitalRead(button_pin))
-    {
-      
-      treuil_1.c_potar.raz();
-      treuil_1.c_treuil.raz();
+    { 
+      delay(500);
+      //treuil_1.c_potar.raz();
+      //treuil_1.c_treuil.raz();
+      treuil_1.mode = 1- treuil_1.mode;
     }
     if (i > 250)
     {
@@ -75,7 +76,6 @@ void loop()
       Serial.print(treuil_1.treuil_min);
       Serial.print(" t_mx:");
       Serial.print(treuil_1.treuil_max);
-      
       i = 0;
     }
     i++;

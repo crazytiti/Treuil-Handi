@@ -22,5 +22,7 @@ public:
 private:
   char button_pin, moteur_pin, adr_ee_treuil_max, adr_ee_treuil_min,
           adr_ee_joy_max, adr_ee_joy_min, adr_ee_joy_neutre;
-  int etat;  //machine a etat
+  float last_speed;   //vitesse treuil en mode impulsionel
+  unsigned long last_time;      //tempo pour rampe d'accéléaration
+  char a_retour;                //anti retour pour arret lros d'une maneuvre inverse en mode impulsionel
 };
