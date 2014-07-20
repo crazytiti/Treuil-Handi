@@ -5,7 +5,7 @@
 	pont en H
 	PPM 														OK
 4) fonctions de gestion de sauvegarde des fin de courses		OK
-4) implantation de la machine à etat du synoptique				50%
+4) implantation de la machine à etat du synoptique				100%
 	proportionelle												OK
-	impuslionelle
+	impuslionelle												OK
 5) gestion du choix impulsionelle / proportionelle				utilisation du bouton de calibration ?

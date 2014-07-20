@@ -18,6 +18,8 @@
 #define adr_eeprom_pot_min  20        //adresse en eeprom position potar mini
 #define adr_eeprom_pot_neutre  24     //adresse en eeprom position potar neutre
 
+#define debug  0                      //active debug sur rs232
+
 treuil treuil_1(button_pin, moteur_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min,
                 adr_eeprom_pot_max, adr_eeprom_pot_min, adr_eeprom_pot_neutre);
 
@@ -25,6 +27,7 @@ void setup()
 {
   Serial.begin(9600);  // start serial for output
   treuil_1.init(adr_enc1, adr_eeprom_nb_tour_pot, adr_enc2, adr_eeprom_nb_tour_treuil);
+  pinMode(led_pin, OUTPUT);
 }
 
 void loop()
@@ -44,8 +47,12 @@ void loop()
     }
     delay(10);
     tempo_calib++;
+    if (tempo_calib % 20 == 1)
+    {    digitalWrite(led_pin, !digitalRead(led_pin));}        //cligniotement de la led
   }
-
+  
+  digitalWrite(led_pin, HIGH);                            //led allumé
+  
   while(1)    //marche normale
   {
     r = treuil_1.c_potar.get_tour();
@@ -58,7 +65,7 @@ void loop()
       //treuil_1.c_treuil.raz();
       treuil_1.mode = 1- treuil_1.mode;
     }
-    if (i > 250)
+    if (i > 250 && debug)
     {
       Serial.print("\nr:");
       Serial.print(r);

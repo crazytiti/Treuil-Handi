@@ -192,15 +192,15 @@ void treuil::marche()
     }
     else             //suivant état précédent du treuil : a l'arret
     {
-      if (pot_value > zone_neutre_impu & !a_retour)
+      if (pot_value > zone_neutre_impu && !a_retour)
       {
         last_speed = min_speed;        //mise en marche avant lente
       }
-      else if (pot_value < - zone_neutre_impu & !a_retour)
+      else if (pot_value < - zone_neutre_impu && !a_retour)
       { 
         last_speed = -min_speed;      //mise en marche arriere lente
       }
-      else
+      else if (pot_value > - zone_neutre_impu && pot_value < zone_neutre_impu)
       {
         //potar au neutre on desactive l'anti retour        
         a_retour = 0;
