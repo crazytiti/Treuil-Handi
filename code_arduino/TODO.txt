@@ -8,4 +8,4 @@
 4) implantation de la machine à etat du synoptique				100%
 	proportionelle												OK
 	impuslionelle												OK
-5) gestion du choix impulsionelle / proportionelle				utilisation du bouton de calibration ?
+5) gestion du choix impulsionelle / proportionelle				utilisation du bouton de calibration

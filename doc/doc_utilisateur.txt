@@ -1,41 +1,39 @@
 Documentation d'utilisation du contrôleur de treuil "handi-treuil"
 
 Sommaire
-1) présentation du systeme
-2) interfacage physique
+1) présentation du système
+2) interfaçage physique
 3) configuration
 4) utilisation
 
-1) Ce systeme de contrôle de treuil est prévu pour fonctionner suivant 2 modes : impulsionel ou proportionel.
+1) Ce système de contrôle de treuil est prévu pour fonctionner suivant 2 modes : impulsionnel ou proportionnel.
 il est prévu pour commander un treuil par l'intermédiaire d'une interface de puissance (variateur de modélisme ou pont en H)
-Le débatement du manche de contrôle et les position min et amx du treuil sont configurables (cf 3)
+Le débattement du manche de contrôle et les position min et max du treuil sont configurables (cf 3)
 
-2) Ce systeme doit etre alimenté (8-15V si carte arduino) les capteurs magnétiques (AS5048B) branchés par leurs 4 fils (alimentation 3.3V ou 5V suivant brochage et interface I2C : SDA/SCL).
+2) Ce système doit être alimenté (8-15V si carte arduino) les capteurs magnétiques (AS5048B) branchés par leurs 4 fils (alimentation 3.3V ou 5V suivant brochage et interface I2C : SDA/SCL).
 Les capteurs magnétique doivent aussi être placé dans l'axe de rotation du manche de commande et du treuil en face des aimants servant à la mesure de la position.
 Les aimants doivent être orientés Nord-Sud de manière radiale (l'as5048 se comporte comme une boussole, la rotation de l'aimant doit faire tourner cette boussole)
 
-3) La configuration des bornes se fait lors des 5 premières secondes après mise sous tension.
-Si lors de ces 5 secondes le bouton de calibration est préssé voici le processus suivi :
-a) mise en marche avant lente du moteur du treuil jusqu'a une nouvelle pression du bouton.
-b) mémorisation de la position max et mise en marche arriere lente du treuil jusqu'a une nouvelle pression du bouton.
-c) mémorisation de la position min, arret du treuil et passage à la calibration du manche de contrôle.
-d) maneuvrer le manche de contrôle de la position min à la position max puis le laisser au neutre.
+3) La configuration des bornes se fait lors des 5 premières secondes (la led clignote) après mise sous tension.
+Si lors de ces 5 secondes le bouton de calibration est pressé voici le processus suivi :
+a) mise en marche avant lente du moteur du treuil jusqu’à une nouvelle pression du bouton.
+b) mémorisation de la position max et mise en marche arrière lente du treuil jusqu’à une nouvelle pression du bouton.
+c) mémorisation de la position min, arrêt du treuil et passage à la calibration du manche de contrôle.
+d) manœuvrer le manche de contrôle de la position min à la position max puis le laisser au neutre.
 e) appuyer sur le bouton les position min, max et neutre du manche de contrôle sont mémorisées.
 
-Le système de contrôle est fonctionel.
+Le système de contrôle est fonctionnel (led allumé).
 Pour procéder à une nouvelle calibration il faut couper l'alimentation.
 
 4) En utilisation normale après avoir mis le système sous tension attendre 5 secondes (toutes action sur le manche de contrôle n'aura aucun effet pendant ce temps)
-Les 5 secondes écoulés le système est en fonctionnement proportionel :
-Le treuil peut etre manipulé par un déplacement dans un sens ou dans l'autre du manche de contrôle.
+Les 5 secondes écoulés le système est en fonctionnement proportionnel :
+Le treuil peut être manipulé par un déplacement dans un sens ou dans l'autre du manche de contrôle.
 La vitesse du treuil est contrôlé par l'inclinaison du manche de contrôle.
-Le treuil s'aretera si une position min ou max est atteinte, et ne pourra repartir que dans l'autre direction.
+Le treuil s’arrêtera si une position min ou max est atteinte, et ne pourra repartir que dans l'autre direction.
 
--------------------------------------------------
-TODO : passage du mdoe proportionel au mode impulsionel
--------------------------------------------------
+Le passage du mode proportionnel au mode impulsionnel se fait par un appuis sur le bouton de calibration en dehors des 5 premières secondes.
 
-En mode impulsionel le treuil est commandé par des impulsions sur le manche de contrôle :
+En mode impulsionnel le treuil est commandé par des impulsions sur le manche de contrôle :
 une impulsion dans un sens met en marche le treuil à vitesse réduite.
 une impulsion prolongée permet d'augmenter la vitesse du treuil.
-une impulsion en sens inverse arrete le treuil.
+une impulsion en sens inverse arrête le treuil.
