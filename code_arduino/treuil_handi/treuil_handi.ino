@@ -18,7 +18,7 @@
 #define adr_eeprom_pot_min  20        //adresse en eeprom position potar mini
 #define adr_eeprom_pot_neutre  24     //adresse en eeprom position potar neutre
 
-#define debug  1                      //active debug sur rs232
+#define debug  0                      //active debug sur rs232
 
 treuil treuil_1(button_pin, moteur_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min,
                 adr_eeprom_pot_max, adr_eeprom_pot_min, adr_eeprom_pot_neutre);
@@ -55,8 +55,6 @@ void loop()
   
   while(1)    //marche normale
   {
-    r = treuil_1.c_potar.get_tour();
-    t = treuil_1.c_treuil.get_tour();
     treuil_1.marche();
     if (!digitalRead(button_pin))
     { 
@@ -65,6 +63,8 @@ void loop()
     }
     if (i > 250 && debug)
     {
+      r = treuil_1.c_potar.get_tour();
+      t = treuil_1.c_treuil.get_tour();
       Serial.print("\nr:");
       Serial.print(r);
       Serial.print(" t:");

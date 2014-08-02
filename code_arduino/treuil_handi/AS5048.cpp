@@ -7,7 +7,7 @@
 void init_as5048(void)
 {
   Wire.begin();        // join i2c bus (address optional for master)
-  TWBR = 1;            // I2C max speed 
+  TWBR = 20;            // I2C speed 20 => 250Khz, avec des pull-ups de 470 ohm ça doit fonctionner sur 2 metres
 }
 
 int read_as5048(char adr)
