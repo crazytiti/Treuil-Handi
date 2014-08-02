@@ -32,6 +32,7 @@ La vitesse du treuil est contrôlé par l'inclinaison du manche de contrôle.
 Le treuil s’arrêtera si une position min ou max est atteinte, et ne pourra repartir que dans l'autre direction.
 
 Le passage du mode proportionnel au mode impulsionnel se fait par un appuis sur le bouton de calibration en dehors des 5 premières secondes.
+L'appuis est confirmé par 1 clignotement pour le passage en mode proportionel, ou 2 pour l'impulsionel.
 
 En mode impulsionnel le treuil est commandé par des impulsions sur le manche de contrôle :
 une impulsion dans un sens met en marche le treuil à vitesse réduite.
