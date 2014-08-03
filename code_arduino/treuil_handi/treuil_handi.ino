@@ -65,8 +65,8 @@ void loop()
     {
       delay(500);
       treuil_1.mode = 1- treuil_1.mode;
-      if (!treuil_1.mode) //clignote 1 fois pour proportionel, 2 fois pour impulsionel
-      {
+      if (!treuil_1.mode)                                   // clignote 1 fois pour proportionnel,
+      {                                                     //  2 fois pour impulsionnel
         digitalWrite(led_pin, LOW);
         delay(200);
         digitalWrite(led_pin, HIGH);
