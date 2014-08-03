@@ -58,14 +58,30 @@ void loop()
   
   digitalWrite(led_pin, HIGH);                              // led allumée
   
-  while(1)                                                  // marche normale
+   while(1) //marche normale
   {
-    treuil_1.marche();                                      
-    if (!digitalRead(button_pin))                           // Changement de mode de commande si appui
-    { 
+    treuil_1.marche();
+    if (!digitalRead(button_pin))
+    {
       delay(500);
-      treuil_1.mode = 1- treuil_1.mode; 
-    }
+      treuil_1.mode = 1- treuil_1.mode;
+      if (!treuil_1.mode) //clignote 1 fois pour proportionel, 2 fois pour impulsionel
+      {
+        digitalWrite(led_pin, LOW);
+        delay(200);
+        digitalWrite(led_pin, HIGH);
+      }
+      else
+      {
+        digitalWrite(led_pin, LOW);
+        delay(200);
+        digitalWrite(led_pin, HIGH);
+        delay(200);
+        digitalWrite(led_pin, LOW);
+        delay(200);
+        digitalWrite(led_pin, HIGH);
+      }
+    }    
     if (i > 250 && debug)
     {
       r = treuil_1.c_potar.get_tour();
