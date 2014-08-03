@@ -11,7 +11,7 @@
 treuil::treuil(char button, char moteur, char adr_treuil_max, char adr_treuil_min,
 char adr_joy_max, char adr_joy_min, char adr_joy_neutre)
 {
-  button_pin = button;                          // pin boutton
+  button_pin = button;                          // pin bouton
   moteur_pin = moteur;                          // pin PPM
   adr_ee_treuil_max = adr_treuil_max;
   adr_ee_treuil_min = adr_treuil_min;
@@ -30,8 +30,8 @@ void treuil::calibration (void)
   // min et max du treuil
   c_treuil.raz();
   moteur_treuil.marche(5);                         // moteur avant lent
-  Serial.println("En avant lent jusqu'à fin de course");
-  Serial.println(" appui sur le bouton quand on y est. ");
+  Serial.println("En avant lent vers fin de course");
+  Serial.println(" Appui sur le bouton quand on y est. ");
   while (digitalRead(button_pin))                  // attend tant que le bouton n'est pas appuyé
   {                                                // le treuil tourne pendant ce temps
     treuil_max = c_treuil.get_tour();              // indispensable pour enregistrer le nb de tours
@@ -55,15 +55,15 @@ void treuil::calibration (void)
   }
   moteur_treuil.marche(0);                         // arrêt moteur
   while (!digitalRead(button_pin));                // attend tant que le bouton est appuyé
-  delay(tempo_rebond);                             //anti-rebond
-                                                   //sauvegarde position
+  delay(tempo_rebond);                             // anti-rebond
+                                                   // sauvegarde position
   treuil_min = c_treuil.get_tour();  
   Serial.print("treuil_min = ");
   Serial.println(treuil_min);
   Serial.println("");  
   ee_ecrit(adr_ee_treuil_min, (char*)&treuil_min, 4);
 
-                                                    //min et max joystick
+                                                   // min et max joystick
   Serial.println("Calibration du joystick");
   Serial.println("");
   c_potar.raz();
@@ -110,7 +110,7 @@ void treuil::calibration (void)
 
 void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, char adr_eeprom_nb_tour_treuil)
 {
-  Serial.println("treuil.init");
+  //Serial.println("treuil.init");
   c_potar.set_compteur(adr_enc1, adr_eeprom_nb_tour_pot);        // récupère la position du potar en eeprom
   c_treuil.set_compteur(adr_enc2, adr_eeprom_nb_tour_treuil);    // récupère la position du treuil en eeprom
   pinMode(button_pin, INPUT_PULLUP);                             // pull up du boutton
@@ -118,7 +118,7 @@ void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, cha
   c_treuil.init();
   moteur_treuil.init(moteur_pin);                                // init du moteur
   moteur_treuil.marche(0);                                       // mise à l'arrêt du moteur
-  Serial.println("servo à l'arrêt");
+  Serial.println("Servo immobile");
   Serial.println("");
   
              // Sous-programme permettant d'adapter le neutre du servo ???
@@ -138,19 +138,20 @@ void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, cha
 
 void treuil::marche()
 {
-  float pot_value;                                  // valeur potentiomètre
+  float pot_value;                                              // valeur potentiomètre
   pot_value = c_potar.get_tour();
-                                                    // calcul la valeur de déplacement en + - 100%
-  if (pot_value >= pot_neutre)                      // déplacement positif
+                                                                // calcul la valeur de déplacement en + - 100%
+  if (pot_value >= pot_neutre)                                  // déplacement positif
   {
     pot_value = (pot_value - pot_neutre) * 100 / (pot_max - pot_neutre);
   }
-  else                                              // déplacement négatif
+  else                                                          // déplacement négatif
   {
     pot_value = (pot_value - pot_neutre) * 100 / (pot_neutre - pot_min);
   }  
-  pot_value = pot_value * (100 / (100- zone_max));  // expansion de la dynamique du potar en fonction de la marge par rapport au maxi
-  if (pot_value > 100)                              // bornage
+  pot_value = pot_value * (100 / (100- zone_max));              // expansion de la dynamique du potar en fonction de
+                                                                //  la marge par rapport au maxi
+  if (pot_value > 100)                                          // bornage
   {
     pot_value = 100;
   }
@@ -158,11 +159,11 @@ void treuil::marche()
   {
     pot_value = -100;
   }
-  //Serial.print(" pot_v : ");                      // debug
-  //Serial.print(pot_value);                        // debug
+  //Serial.print(" pot_v : ");                                  // debug
+  //Serial.print(pot_value);                                    // debug
   switch(mode){
-  case 0:                                           // mode proportionnel
-    if (pot_value > zone_neutre)                    // marche avant
+  case 0:                                                       // mode proportionnel
+    if (pot_value > zone_neutre)                                // marche avant
     {
       if (c_treuil.get_tour() < treuil_max)
       {
@@ -173,7 +174,7 @@ void treuil::marche()
         moteur_treuil.marche(0);
       }
     }
-    else if (pot_value < - zone_neutre)             // marche arrière
+    else if (pot_value < - zone_neutre)                         // marche arrière
     {
       if (c_treuil.get_tour() > treuil_min)
       {
@@ -189,13 +190,13 @@ void treuil::marche()
       moteur_treuil.marche(0);
     }
     break;
-  case 1:                                         // mode impulsionnel, fréquence de rafraichissement 10ms (100hz)
-    if ((millis() - last_time) < 10)              // on sort si 10ms ne se sont pas écoulées
+  case 1:                                                      // mode impulsionnel, fréquence de rafraichissement 10ms (100hz)
+    if ((millis() - last_time) < 10)                           // on sort si 10ms ne se sont pas écoulées
     {
       break;
     }
-    last_time = millis();                         // mémorisation de l'heure
-    if (last_speed > 0)                           // suivant état précédent du treuil : sens avant
+    last_time = millis();                                      // mémorisation de l'heure
+    if (last_speed > 0)                                        // suivant état précédent du treuil : sens avant
     {
       if (pot_value > zone_neutre_impu)
       {
@@ -207,11 +208,11 @@ void treuil::marche()
       }
       else if (pot_value < - zone_neutre_impu)
       {
-        last_speed = 0;                          // arrêt suite à manoeuvre inverse du pot
-        a_retour = 1;                            // activation de l'anti-retour
-      }
+        last_speed = 0;                                         // arrêt suite à manoeuvre inverse du pot
+        a_retour = 1;                                           // activation de l'anti-retour
+      } 
     }
-    else if (last_speed < 0)                     // suivant état précédent du treuil : sens arrière
+    else if (last_speed < 0)                                    // suivant état précédent du treuil : sens arrière
     {
       if (pot_value < - zone_neutre_impu)
       {
@@ -223,42 +224,42 @@ void treuil::marche()
       }
       else if (pot_value > zone_neutre_impu)
       {
-        last_speed = 0;                          // arrêt suite à manoeuvre inverse du pot
-        a_retour = 1;                            // activation de l'anti-retour
+        last_speed = 0;                                          // arrêt suite à manoeuvre inverse du pot
+        a_retour = 1;                                            // activation de l'anti-retour
       }
     }
-    else                                         // suivant état précédent du treuil : à l'arrêt
+    else                                                         // suivant état précédent du treuil : à l'arrêt
     {
       if (pot_value > zone_neutre_impu && !a_retour)
       {
-        last_speed = min_speed;                  // mise en marche avant lent
+        last_speed = min_speed;                                  // mise en marche avant lent
       }
       else if (pot_value < - zone_neutre_impu && !a_retour)
       { 
-        last_speed = -min_speed;                 // mise en marche arrière lent
+        last_speed = -min_speed;                                 // mise en marche arrière lent
       }
       else if (pot_value > - zone_neutre_impu && pot_value < zone_neutre_impu)
       {
-                                                 // potar au neutre on désactive l'anti retour        
+                                                                // potar au neutre on désactive l'anti retour        
         a_retour = 0;
       }
     }
-                                                 // -----------gestion des butées ------
+                                                                // -----------gestion des butées ------
     if (last_speed > 0)
     {
-      if (c_treuil.get_tour() >= treuil_max)     // max atteint => arrêt
+      if (c_treuil.get_tour() >= treuil_max)                    // max atteint => arrêt
       {
         last_speed = 0;
       }
     }
     else if (last_speed < 0)
     {
-      if (c_treuil.get_tour() <= treuil_min)      // min atteint => arrêt
+      if (c_treuil.get_tour() <= treuil_min)                   // min atteint => arrêt
       {
         last_speed = 0;
       }
     }
-    moteur_treuil.marche(last_speed);             //envoi de la commande au moteur
+    moteur_treuil.marche(last_speed);                          // envoi de la commande au moteur
     break;
   }
 }

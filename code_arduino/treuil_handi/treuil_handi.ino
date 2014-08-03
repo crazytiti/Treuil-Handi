@@ -90,8 +90,8 @@ void loop()
       Serial.print(r);
       Serial.print(" t:");
       Serial.print(t);
-      Serial.print(" bt:");
-      Serial.print(digitalRead(button_pin));
+      //Serial.print(" bt:");
+      //Serial.print(digitalRead(button_pin));       
       Serial.print(" min:");
       Serial.print(treuil_1.pot_min);
       Serial.print(" max:");
