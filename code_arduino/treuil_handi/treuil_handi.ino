@@ -5,27 +5,31 @@
 #include <Servo.h> 
 #include "fonctions_treuil.h"
 
-#define button_pin  12              //broche du bouton
-#define moteur_pin  11              //broche du PPM
-#define led_pin     13              //broche led
-#define adr_enc1  64                //adresse encodeur potar
-#define adr_enc2  65                //adresse encodeur treuil
-#define adr_eeprom_nb_tour_pot  0     //adresse en eeprom nb de tour du pot
-#define adr_eeprom_nb_tour_treuil  4  //adresse en eeprom nb de tour du treuil
-#define adr_eeprom_treuil_max  8      //adresse en eeprom position treuil maxi
-#define adr_eeprom_treuil_min  12     //adresse en eeprom position treuil mini
-#define adr_eeprom_pot_max  16        //adresse en eeprom position potar maxi
-#define adr_eeprom_pot_min  20        //adresse en eeprom position potar mini
-#define adr_eeprom_pot_neutre  24     //adresse en eeprom position potar neutre
+#define button_pin  12                             // broche du bouton
+#define moteur_pin  11                             // broche du PPM
+#define led_pin     13                             // broche led
+#define adr_enc1  64                               // adresse encodeur potar
+#define adr_enc2  65                               // adresse encodeur treuil
+#define adr_eeprom_nb_tour_pot  0                  // adresse en eeprom nb de tour du pot
+#define adr_eeprom_nb_tour_treuil  4               // adresse en eeprom nb de tour du treuil
+#define adr_eeprom_treuil_max  8                   // adresse en eeprom position treuil maxi
+#define adr_eeprom_treuil_min  12                  // adresse en eeprom position treuil mini
+#define adr_eeprom_pot_max  16                     // adresse en eeprom position potar maxi
+#define adr_eeprom_pot_min  20                     // adresse en eeprom position potar mini
+#define adr_eeprom_pot_neutre  24                  // adresse en eeprom position potar neutre
 
-#define debug  0                      //active debug sur rs232
+#define debug  1                                   //active debug sur rs232
 
 treuil treuil_1(button_pin, moteur_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min,
                 adr_eeprom_pot_max, adr_eeprom_pot_min, adr_eeprom_pot_neutre);
 
 void setup()
 {
-  Serial.begin(9600);  // start serial for output
+  Serial.begin(9600);                              // start serial for output
+  
+  delay(3000);                                     // pour attendre que l'on ouvre l'afficheur série
+  Serial.println("Treuil-Handi");
+  
   treuil_1.init(adr_enc1, adr_eeprom_nb_tour_pot, adr_enc2, adr_eeprom_nb_tour_treuil);
   pinMode(led_pin, OUTPUT);
 }
@@ -36,30 +40,31 @@ void loop()
   int tempo_calib, i=0;
   
   tempo_calib = 0;
-  while(tempo_calib < 500)   //phase calibration
+  while(tempo_calib < 500)                                  // phase calibration
   {
     if (!digitalRead(button_pin))
     {
-      while(!digitalRead(button_pin));    //attente relachement boutton
-      delay(tempo_rebond);                    //anti-rebond
+      while(!digitalRead(button_pin));                      // attente relâchement bouton
+      delay(tempo_rebond);                                  // anti-rebond
+      Serial.println("calibration");
       treuil_1.calibration();
-      tempo_calib = 500;    //on sort de la boucle si calibration
+      tempo_calib = 500;                                    // on sort de la boucle si calibration
     }
     delay(10);
     tempo_calib++;
     if (tempo_calib % 20 == 1)
-    {    digitalWrite(led_pin, !digitalRead(led_pin));}        //cligniotement de la led
-  }
+    {    digitalWrite(led_pin, !digitalRead(led_pin));}     // clignotement de la led pendant toute la durée
+  }                                                         // où la calibration peut être déclenchée
   
-  digitalWrite(led_pin, HIGH);                            //led allumé
+  digitalWrite(led_pin, HIGH);                              // led allumée
   
-  while(1)    //marche normale
+  while(1)                                                  // marche normale
   {
-    treuil_1.marche();
-    if (!digitalRead(button_pin))
+    treuil_1.marche();                                      
+    if (!digitalRead(button_pin))                           // Changement de mode de commande si appui
     { 
       delay(500);
-      treuil_1.mode = 1- treuil_1.mode;
+      treuil_1.mode = 1- treuil_1.mode; 
     }
     if (i > 250 && debug)
     {
