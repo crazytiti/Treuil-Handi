@@ -14,12 +14,12 @@ void compteur::init()
 {
   init_as5048();                            //initialisation as5048
   pos = read_as5048(adr);                   //position actuelle
-  old_pos = pos;                            //mise ne mémoire pour detection d'un tour complet
-  ee_lit(adr_eeprom, (char*)&nb_tour, 4);   //récupere le nombre de tour en eeprom
+  old_pos = pos;                            //mise ne mémoire pour détection d'un tour complet
+  ee_lit(adr_eeprom, (char*)&nb_tour, 4);   //récupère le nombre de tours en eeprom
 }
 
 void compteur::raz()
-//remet à 0 le compteur de nombre de tour en eeprom
+//remet à 0 le compteur de nombre de tours en eeprom
 {
   nb_tour = 0;
   ee_ecrit(adr_eeprom, (char*)&nb_tour, 4);
