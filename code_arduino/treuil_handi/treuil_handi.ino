@@ -73,8 +73,8 @@ void loop()
         digitalWrite(led_pin, HIGH);
         delay(200);
         digitalWrite(led_pin, LOW);
-        delay(200);
-        digitalWrite(led_pin, HIGH);
+        //delay(200);
+        //digitalWrite(led_pin, HIGH);  //on garde la led eteinte pour le mode impulsionel
       }
     }
     if (i > 250 && debug)

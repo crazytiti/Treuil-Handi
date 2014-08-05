@@ -1,7 +1,7 @@
 #include "fonctions_treuil.h"
 
 #define  zone_neutre  5    //marge du neutre du potar en %
-#define  zone_neutre_impu  25    //marge du neutre du potar en % en mdoe impulsionel
+#define  zone_neutre_impu  25    //marge du neutre du potar en % en mode impulsionel
 #define  zone_max  5       //marge à partir de laquelle on considere +- 100%
 #define  ramp_speed  3000    //durée (en ms) pour atteindre 100% de vitesse en mode impulsionel
 #define  min_speed  5      //vitesse de démarrage du mode impulsionnele
