@@ -1,5 +1,6 @@
 #include "fonctions_treuil.h"
 
+#define  calib_speed  10                        // vitesse "lente" de calibration treuil
 #define  zone_neutre  5                         // marge du neutre du potar en %
 #define  zone_neutre_impu  25                   // marge du neutre du potar en % en mode impulsionnel
 #define  zone_max  5                            // marge à partir de laquelle on considère +- 100%
@@ -29,7 +30,7 @@ void treuil::calibration (void)
 {
   // min et max du treuil
   c_treuil.raz();
-  moteur_treuil.marche(5);                         // moteur avant lent
+  moteur_treuil.marche(calib_speed);                         // moteur avant lent
   Serial.println("En avant lent vers fin de course");
   Serial.println(" Appui sur le bouton quand on y est. ");
   while (digitalRead(button_pin))                  // attend tant que le bouton n'est pas appuyé
@@ -42,16 +43,16 @@ void treuil::calibration (void)
   while (!digitalRead(button_pin));                // attend le relâchement du bouton
   delay(tempo_rebond);                             //anti-rebond
                                                    //sauvegarde position
-  //treuil_max = c_treuil.get_tour();                          
+  treuil_max = c_treuil.get_tour();                          
   Serial.print("treuil_max = ");
   Serial.println(treuil_max);
   Serial.println("");
   ee_ecrit(adr_ee_treuil_max, (char*)&treuil_max, 4);
   
-  moteur_treuil.marche(-5);                        // moteur arrière lent
+  moteur_treuil.marche(-calib_speed);                        // moteur arrière lent
   while (digitalRead(button_pin))                  // attend tant que le bouton n'est pas appuyé
   {
-    treuil_min = c_treuil.get_tour();              // utile pour connaître le nb de tours
+    treuil_min = c_treuil.get_tour();              // indispensable pour enregistrer le nb de tours
   }
   moteur_treuil.marche(0);                         // arrêt moteur
   while (!digitalRead(button_pin));                // attend tant que le bouton est appuyé
@@ -121,7 +122,7 @@ void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, cha
   Serial.println("Servo immobile");
   Serial.println("");
   
-             // Sous-programme permettant d'adapter le neutre du servo ???
+             // initialisation de l'anti-retour et des différentes constante de calibration
    
   delay(1000);
   last_speed = 0;                                                // init à 0 en mode impulsionnel
