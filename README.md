@@ -18,6 +18,10 @@ Partie physique :
 - détéction de la position du treuil par encodeur magnétique multitours et aimant sur l'axe
 - le treuil n'est pas inclus dans ce projet.
 
+Video démo
+------
+[![Proto](https://i.ytimg.com/vi/P2LJBS67qqI/hqdefault.jpg)](http://youtu.be/P2LJBS67qqI)
+
 Partie logique :
 Le schéma synaptique de fonctionement du treuil est au format opendocument (open/libre-office) dans le répository.
 
