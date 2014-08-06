@@ -9,3 +9,8 @@
 	proportionelle												OK
 	impuslionelle												OK
 5) gestion du choix impulsionelle / proportionelle				utilisation du bouton de calibration
+
+modification mode "vitesse" et mode "position"
+1) enlever le mode impulsionelle sert à rien
+2) ajouter le mode position
+3) renommer dans la doc et les commentaires
