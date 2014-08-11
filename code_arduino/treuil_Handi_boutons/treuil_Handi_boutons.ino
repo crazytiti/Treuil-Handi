@@ -2,10 +2,9 @@
 
 
 // Variation avec 2 boutons comme commande
-// commencée le 9 août 2014
-// limitation à maximum un tour pour la commande en séparant les routines commande des routines contrôle
 
-// Trois boutons poussoirs simulent 2 capteurs à effet hall devant lesquels un aimant se déplace successivement
+
+// Deux boutons poussoirs simulent 2 capteurs à effet hall devant lesquels un aimant se déplace successivement
 
 
 #include <Wire.h>
@@ -18,7 +17,7 @@
 #define led_pin     13                             // broche led
 #define button_av_pin   4                          // poussoir avant
 #define button_ar_pin   7                          // poussoir arrière
-#define adr_enc2  65       
+#define adr_enc2  64                               // pour être comme le schéma
 #define adr_eeprom_nb_tour_treuil  4               // adresse en eeprom nb de tour du treuil
 #define adr_eeprom_treuil_max  8                   // adresse en eeprom position treuil maxi
 #define adr_eeprom_treuil_min  12                  // adresse en eeprom position treuil mini
