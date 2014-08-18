@@ -2,3 +2,4 @@ Choix de la partie gestion puissance :
 - choix composants actifs
 - module indépandants "tout prêt" / creation d'un PCB "puissance" / création PCB avec microcontroleur + partie puissance
 - utilisation d'un variateur de modélisme
+- module tout pret 43A en pointe : BTS7960

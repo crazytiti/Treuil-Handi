@@ -18,7 +18,7 @@
 #define adr_eeprom_pot_min  20                     // adresse en eeprom position potar mini
 #define adr_eeprom_pot_neutre  24                  // adresse en eeprom position potar neutre
 
-#define debug  0                                   //active debug sur rs232
+#define debug  1                                   //active debug sur rs232
 
 treuil treuil_1(button_pin, moteur_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min,
                 adr_eeprom_pot_max, adr_eeprom_pot_min, adr_eeprom_pot_neutre);
@@ -65,8 +65,8 @@ void loop()
     {
       delay(500);
       treuil_1.mode = 1- treuil_1.mode;
-      if (!treuil_1.mode)                                   // clignote 1 fois pour proportionnel,
-      {                                                     //  2 fois pour impulsionnel
+      if (!treuil_1.mode)                                   // clignote 1 fois pour mode vitesse,
+      {                                                     //  2 fois pour mode position
         digitalWrite(led_pin, LOW);
         delay(200);
         digitalWrite(led_pin, HIGH);
@@ -79,7 +79,7 @@ void loop()
         delay(200);
         digitalWrite(led_pin, LOW);
         //delay(200);
-        //digitalWrite(led_pin, HIGH);                      // on laisse éteitn pour le mdoe impulsionel
+        //digitalWrite(led_pin, HIGH);                      // on laisse éteint pour le mode position
       }
     }    
     if (i > 250 && debug)

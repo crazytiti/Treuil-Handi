@@ -17,12 +17,12 @@ public:
   moteur moteur_treuil;                     // instanciation moteur
   compteur c_potar;                         // instanciation potar type compteur
   compteur c_treuil;                        // instanciation treuil type compteur
-  char mode;                                // mode proportionnel (0) ou impulsionnel (1)
+  char mode;                                // mode vitesse (0) ou position (1)
   float treuil_max, treuil_min, pot_max, pot_min, pot_neutre;
 private:
   char button_pin, moteur_pin, adr_ee_treuil_max, adr_ee_treuil_min,
           adr_ee_joy_max, adr_ee_joy_min, adr_ee_joy_neutre;
-  float last_speed;                         // vitesse treuil en mode impulsionnel
+  float last_speed;                         // vitesse treuil en mode position
+  float last_pos;                           // derniere position demandée
   unsigned long last_time;                  // tempo pour rampe d'accélération
-  char a_retour;                            // anti retour pour arrêt lors d'une manoeuvre inverse en mode impulsionnel
 };

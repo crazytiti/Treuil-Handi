@@ -6,7 +6,7 @@ Sommaire
 3) configuration
 4) utilisation
 
-1) Ce système de contrôle de treuil est prévu pour fonctionner suivant 2 modes : impulsionnel ou proportionnel.
+1) Ce système de contrôle de treuil est prévu pour fonctionner suivant 2 modes : vitesse ou position.
 il est prévu pour commander un treuil par l'intermédiaire d'une interface de puissance (variateur de modélisme ou pont en H)
 Le débattement du manche de contrôle et les position min et max du treuil sont configurables (cf 3)
 
@@ -26,15 +26,17 @@ Le système de contrôle est fonctionnel (led allumé).
 Pour procéder à une nouvelle calibration il faut couper l'alimentation.
 
 4) En utilisation normale après avoir mis le système sous tension attendre 5 secondes (toutes action sur le manche de contrôle n'aura aucun effet pendant ce temps)
-Les 5 secondes écoulés le système est en fonctionnement proportionnel :
+Les 5 secondes écoulés le système est en fonctionnement vitesse :
 Le treuil peut être manipulé par un déplacement dans un sens ou dans l'autre du manche de contrôle.
 La vitesse du treuil est contrôlé par l'inclinaison du manche de contrôle.
 Le treuil s’arrêtera si une position min ou max est atteinte, et ne pourra repartir que dans l'autre direction.
 
-Le passage du mode proportionnel au mode impulsionnel se fait par un appuis sur le bouton de calibration en dehors des 5 premières secondes.
-L'appuis est confirmé par 1 clignotement pour le passage en mode proportionel, ou 2 pour l'impulsionel.
+Le passage du mode vitesse au mode position se fait par un appuis sur le bouton de calibration en dehors des 5 premières secondes.
+L'appuis est confirmé par 1 clignotement pour le passage en mode vitesse, ou 2 pour le mode position.
 
-En mode impulsionnel le treuil est commandé par des impulsions sur le manche de contrôle :
-une impulsion dans un sens met en marche le treuil à vitesse réduite.
-une impulsion prolongée permet d'augmenter la vitesse du treuil.
-une impulsion en sens inverse arrête le treuil.
+En mode position le treuil est commandé par la position du manche de contrôle :
+manche au mini => treuil en butée mini.
+manche au maxi => treuil en butée maxi.
+position intermédiaire => déplacement du treuil correspondant.
+
+!! Attention lors du passage du mode vitesse au mode position le treuil va se déplacer pour atteindre la position du manche !!
