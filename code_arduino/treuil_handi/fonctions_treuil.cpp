@@ -8,17 +8,16 @@
 #define  min_speed  5                           // vitesse de démarrage du mode position
 
 
-treuil::treuil(char button, char moteur, char adr_treuil_max, char adr_treuil_min,
+treuil::treuil(char button, char adr_treuil_max, char adr_treuil_min,
 char adr_joy_max, char adr_joy_min, char adr_joy_neutre)
 {
-  button_pin = button;                          // pin bouton
-  moteur_pin = moteur;                          // pin PPM
+  button_pin = button;                                           // pin bouton
   adr_ee_treuil_max = adr_treuil_max;
   adr_ee_treuil_min = adr_treuil_min;
   adr_ee_joy_max = adr_joy_max;
   adr_ee_joy_min = adr_joy_min;
   adr_ee_joy_neutre = adr_joy_neutre;
-  mode = 0;                                     // mode vitesse par défaut
+  mode = 0;                                                      // mode vitesse par défaut
 }
 
 void treuil::calibration (void)
@@ -103,7 +102,7 @@ void treuil::calibration (void)
 
 
 
-void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, char adr_eeprom_nb_tour_treuil)
+void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, char adr_eeprom_nb_tour_treuil, char moteur,char moteur_pwm1, char moteur_pwm2)
 {
   //Serial.println("treuil.init");
   c_potar.set_compteur(adr_enc1, adr_eeprom_nb_tour_pot);        // récupère la position du potar en eeprom
@@ -111,7 +110,7 @@ void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, cha
   pinMode(button_pin, INPUT_PULLUP);                             // pull up du boutton
   c_potar.init();                                                // init des 2 compteurs potar et treuil
   c_treuil.init();
-  moteur_treuil.init(moteur_pin);                                // init du moteur
+  moteur_treuil.init(moteur, moteur_pwm1, moteur_pwm2);          // init du moteur
   moteur_treuil.marche(0);                                       // mise à l'arrêt du moteur
   Serial.println("Servo immobile\n");
 
