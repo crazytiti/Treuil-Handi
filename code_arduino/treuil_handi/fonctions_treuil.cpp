@@ -102,7 +102,7 @@ void treuil::calibration (void)
 
 
 
-void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, char adr_eeprom_nb_tour_treuil, char moteur,char moteur_pwm1, char moteur_pwm2)
+void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, char adr_eeprom_nb_tour_treuil, char moteur,char moteur_pwm, char moteur_left, char moteur_right)
 {
   //Serial.println("treuil.init");
   c_potar.set_compteur(adr_enc1, adr_eeprom_nb_tour_pot);        // récupère la position du potar en eeprom
@@ -110,7 +110,7 @@ void treuil::init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, cha
   pinMode(button_pin, INPUT_PULLUP);                             // pull up du boutton
   c_potar.init();                                                // init des 2 compteurs potar et treuil
   c_treuil.init();
-  moteur_treuil.init(moteur, moteur_pwm1, moteur_pwm2);          // init du moteur
+  moteur_treuil.init(moteur, moteur_pwm, moteur_left, moteur_right);          // init du moteur
   moteur_treuil.marche(0);                                       // mise à l'arrêt du moteur
   Serial.println("Servo immobile\n");
 

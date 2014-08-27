@@ -7,8 +7,9 @@
 
 #define button_pin  12                             // broche du bouton
 #define moteur_pin  11                             // broche du PPM
-#define moteur_pwm1 6                              // broche PWM 1
-#define moteur_pwm2 7                              // broche PWM 2
+#define moteur_pwm 6                               // broche PWM
+#define moteur_left 7                              // broche mosfet "gauche"
+#define moteur_right 8                             // broche mosfet "droit"
 #define led_pin     13                             // broche led
 #define adr_enc1  64                               // adresse encodeur potar
 #define adr_enc2  65                               // adresse encodeur treuil
@@ -32,7 +33,7 @@ void setup()
   delay(3000);                                     // pour attendre que l'on ouvre l'afficheur série
   Serial.println("Treuil-Handi");
   
-  treuil_1.init(adr_enc1, adr_eeprom_nb_tour_pot, adr_enc2, adr_eeprom_nb_tour_treuil, moteur_pin, moteur_pwm1, moteur_pwm2);
+  treuil_1.init(adr_enc1, adr_eeprom_nb_tour_pot, adr_enc2, adr_eeprom_nb_tour_treuil, moteur_pin, moteur_pwm, moteur_left, moteur_right);
   pinMode(led_pin, OUTPUT);
 }
 

@@ -1,5 +1,6 @@
 #include "moteur.h"
 
+#define force_frein 255                // force du frein à l'arret de 0 à 255
 Servo myservo;
 
 void moteur::marche (signed char speed)
@@ -11,32 +12,40 @@ void moteur::marche (signed char speed)
   commande += 91;                       // offset pour qu'une commande 0 soit le point milieu
   myservo.write(commande);              // envoi de la commande au servo
   
-  // gestion 2 signaux PWM pour pont en H
   float calcul;
-  char value1, value2;
-  if (speed >=0)
+  char pwm_value;
+  if (speed >0)                         // marche avant
   {
-    value2 = 0;
-    calcul = speed;
+    calcul = speed;                     // conversion de % à 0-255
     calcul = calcul *2.55;
-    value1 = calcul;
+    pwm_value = calcul;
+    digitalWrite(p_left, HIGH);         // mosfet gauche sur Vcc et mosfet droit GND
+    digitalWrite(p_right, LOW);
   }
-  else
+  else if (speed <0)
   {
-    value1 = 0;
     calcul = -speed;
     calcul = calcul *2.55;
-    value2 = calcul;
+    pwm_value = calcul;
+    digitalWrite(p_left, LOW);          // mosfet gauche sur GND et mosfet droit Vcc
+    digitalWrite(p_right, HIGH);
   }
-  analogWrite(p_pwm1, value1);
-  analogWrite(p_pwm2, value2);
+  else if (speed == 0)    //frein à l'arret avec mosfet droit et gauche sur GND
+  {
+    pwm_value = force_frein;            // application de la force du frein
+    digitalWrite(p_left, LOW);
+    digitalWrite(p_right, LOW);
+  }
+  analogWrite(p_pwm, pwm_value);        // active le PWM à la proportion voulue
 }
 
-void moteur::init (char pin_servo, char pin_pwm1, char pin_pwm2)
+void moteur::init (char pin_servo, char pin_pwm, char pin_left, char pin_right)
 {
   myservo.attach(pin_servo);
-  p_pwm1 = pin_pwm1;
-  p_pwm2 = pin_pwm2;
-  pinMode(p_pwm1, OUTPUT);
-  pinMode(p_pwm2, OUTPUT);
+  p_pwm = pin_pwm;
+  p_left = pin_left;
+  p_right = pin_right;
+  pinMode(p_pwm, OUTPUT);
+  pinMode(p_left, OUTPUT);
+  pinMode(p_right, OUTPUT);
 }
