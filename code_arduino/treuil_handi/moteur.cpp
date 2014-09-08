@@ -12,6 +12,7 @@ void moteur::marche (signed char speed)
   commande += 91;                       // offset pour qu'une commande 0 soit le point milieu
   myservo.write(commande);              // envoi de la commande au servo
   
+  // gestion d'un signal PWM
   float calcul;
   char pwm_value;
   if (speed >0)                         // marche avant

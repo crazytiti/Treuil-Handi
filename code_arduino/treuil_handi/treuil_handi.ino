@@ -5,14 +5,6 @@
 #include <Servo.h> 
 #include "fonctions_treuil.h"
 
-#define button_pin  12                             // broche du bouton
-#define moteur_pin  11                             // broche du PPM
-#define moteur_pwm 6                               // broche PWM
-#define moteur_left 7                              // broche mosfet "gauche"
-#define moteur_right 8                             // broche mosfet "droit"
-#define led_pin     13                             // broche led
-#define adr_enc1  64                               // adresse encodeur potar
-#define adr_enc2  65                               // adresse encodeur treuil
 #define adr_eeprom_nb_tour_pot  0                  // adresse en eeprom nb de tour du pot
 #define adr_eeprom_nb_tour_treuil  4               // adresse en eeprom nb de tour du treuil
 #define adr_eeprom_treuil_max  8                   // adresse en eeprom position treuil maxi
@@ -21,9 +13,7 @@
 #define adr_eeprom_pot_min  20                     // adresse en eeprom position potar mini
 #define adr_eeprom_pot_neutre  24                  // adresse en eeprom position potar neutre
 
-#define debug  1                                   //active debug sur rs232
-
-treuil treuil_1(button_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min,
+treuil treuil_1(boutton_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min,
                 adr_eeprom_pot_max, adr_eeprom_pot_min, adr_eeprom_pot_neutre);
 
 void setup()
@@ -31,9 +21,10 @@ void setup()
   Serial.begin(9600);                              // start serial for output
   
   delay(3000);                                     // pour attendre que l'on ouvre l'afficheur série
-  Serial.println("Treuil-Handi");
+  if (debug)
+    Serial.println("Treuil-Handi");
   
-  treuil_1.init(adr_enc1, adr_eeprom_nb_tour_pot, adr_enc2, adr_eeprom_nb_tour_treuil, moteur_pin, moteur_pwm, moteur_left, moteur_right);
+  treuil_1.init(adr_enc1, adr_eeprom_nb_tour_pot, adr_enc2, adr_eeprom_nb_tour_treuil, moteur_pin, moteur_pwm_pin, moteur_left_pin, moteur_right_pin);
   pinMode(led_pin, OUTPUT);
 }
 
@@ -45,11 +36,12 @@ void loop()
   tempo_calib = 0;
   while(tempo_calib < 500)                                  // phase calibration
   {
-    if (!digitalRead(button_pin))
+    if (!digitalRead(boutton_pin))
     {
-      while(!digitalRead(button_pin));                      // attente relâchement bouton
+      while(!digitalRead(boutton_pin));                      // attente relâchement bouton
       delay(tempo_rebond);                                  // anti-rebond
-      Serial.println("calibration");
+      if (debug)
+        Serial.println("calibration");
       treuil_1.calibration();
       tempo_calib = 500;                                    // on sort de la boucle si calibration
     }
@@ -64,7 +56,7 @@ void loop()
    while(1) //marche normale
   {
     treuil_1.marche();
-    if (!digitalRead(button_pin))
+    if (!digitalRead(boutton_pin))
     {
       delay(500);
       treuil_1.mode = 1- treuil_1.mode;
@@ -92,9 +84,7 @@ void loop()
       Serial.print("\nr:");
       Serial.print(r);
       Serial.print(" t:");
-      Serial.print(t);
-      //Serial.print(" bt:");
-      //Serial.print(digitalRead(button_pin));       
+      Serial.print(t);     
       Serial.print(" min:");
       Serial.print(treuil_1.pot_min);
       Serial.print(" max:");

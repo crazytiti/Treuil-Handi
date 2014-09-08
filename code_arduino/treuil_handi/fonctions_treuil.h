@@ -2,6 +2,7 @@
 #include "compteur.h"
 //#include <arduino.h>
 #include "eeprom.h"
+#include "config.h"
 
 #define tempo_rebond  500
 
@@ -12,7 +13,7 @@ public:
   treuil(char button, char adr_treuil_max, char adr_treuil_min,
          char adr_joy_max, char adr_joy_min, char adr_joy_neutre);
   void calibration(void);                   // fonction de calibration manche et treuil
-  void init(char adr_enc1, char adr_eeprom_nb_tour_pot, char adr_enc2, char adr_eeprom_nb_tour_treuil, char moteur,char moteur_pwm, char moteur_left, char moteur_right);  // init du treuil
+  void init(char adr_encp, char adr_eeprom_nb_tour_pot, char adr_enct, char adr_eeprom_nb_tour_treuil, char moteur,char moteur_pwm, char moteur_left, char moteur_right);  // init du treuil
   void marche(void);                        // contrôle le moteur en fonction du potar suivant le mode choisi
   moteur moteur_treuil;                     // instanciation moteur
   compteur c_potar;                         // instanciation potar type compteur
@@ -25,4 +26,6 @@ private:
   float last_speed;                         // vitesse treuil en mode position
   float last_pos;                           // derniere position demandée
   unsigned long last_time;                  // tempo pour rampe d'accélération
+  int pos_atteint;                                             // memorisation si on atteint la position
+  float last_dir;                                                // memorisation dernierre direction
 };
