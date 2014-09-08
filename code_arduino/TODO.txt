@@ -16,10 +16,4 @@ modification mode "vitesse" et mode "position"					OK
 2) ajouter le mode position										OK
 3) renommer dans la doc et les commentaires						OK
 
-
-Modifs :
-Je pense que je vais rajouter un "jeu fonctionnel" pour la tenue de position.
-Cela pour pouvoir compenser le jeu mécanique entre l'axe du moteur, la réduction et l'axe où est installé le capteur.
-Comme ça le moteur sera commandé jusqu’à atteindre la position voulue (P1), puis il sera juste maintenue en frein tant que la position n'aura pas bougé d'au moins une certaine valeur.
-Si la position du treuil sort de cette plage alors le moteur sera commandé pour à nouveau atteindre la position P1.
-en % de la course totale
+6) faire un "buzer" PWM au démarrage pour dire que c'est OK 	
