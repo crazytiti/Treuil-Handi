@@ -204,7 +204,6 @@ void treuil::marche()
       last_pos = pot_value;
       pos_atteint = 0;                                           // r-a-z
       last_dir = last_pos - treuil_pos;                          //detection du sens
-      digitalWrite(led_pin, !digitalRead(led_pin));
     }
     if (treuil_pos < last_pos)
     {
