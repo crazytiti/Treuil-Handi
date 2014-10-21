@@ -17,3 +17,4 @@ modification mode "vitesse" et mode "position"					OK
 3) renommer dans la doc et les commentaires						OK
 
 6) faire un "buzer" PWM au démarrage pour dire que c'est OK 	
+7) mettre en eeprom la valeur de mode							OK

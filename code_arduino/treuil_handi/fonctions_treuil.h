@@ -2,7 +2,6 @@
 #include "compteur.h"
 //#include <arduino.h>
 #include "eeprom.h"
-#include "config.h"
 
 #define tempo_rebond  500
 

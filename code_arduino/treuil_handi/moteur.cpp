@@ -40,6 +40,23 @@ void moteur::marche (signed char speed)
   analogWrite(p_pwm, pwm_value);        // active le PWM à la proportion voulue
 }
 
+void moteur::beep(signed char frequence)
+{
+  int i;
+  for(i=0;i<100;i++)
+  {
+  digitalWrite(p_left, HIGH);         // mosfet gauche sur Vcc et mosfet droit GND
+  digitalWrite(p_right, LOW);
+  analogWrite(p_pwm, Beep_pwm);        // active le PWM à la proportion voulue
+  delay(frequence);
+  digitalWrite(p_left, LOW);          // mosfet gauche sur GND et mosfet droit Vcc
+  digitalWrite(p_right, HIGH);
+  analogWrite(p_pwm, Beep_pwm);        // active le PWM à la proportion voulue
+  delay(frequence);
+  }
+  analogWrite(p_pwm, 0);              // ARRET
+}
+
 void moteur::init (char pin_servo, char pin_pwm, char pin_left, char pin_right)
 {
   myservo.attach(pin_servo);

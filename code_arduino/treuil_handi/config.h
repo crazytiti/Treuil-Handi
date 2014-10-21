@@ -30,6 +30,12 @@
 #define  jeu_mini  3.0                            // plage de jeu mécannique avant que le treuil ne compense le mouvement en mode position
 
 /*      ________________
+        Divers
+        ----------------
+*/
+#define  Beep_pwm  50                             // % du PWM lors des beep (a changer si on entend pas le beep)
+
+/*      ________________
         Debug par rs232
         ----------------
 */

@@ -12,27 +12,23 @@
 #define adr_eeprom_pot_max  16                     // adresse en eeprom position potar maxi
 #define adr_eeprom_pot_min  20                     // adresse en eeprom position potar mini
 #define adr_eeprom_pot_neutre  24                  // adresse en eeprom position potar neutre
+#define adr_eeprom_mode  28                        // adresse en eeprom sauvegarde du mode
 
 treuil treuil_1(boutton_pin, adr_eeprom_treuil_max, adr_eeprom_treuil_min,
                 adr_eeprom_pot_max, adr_eeprom_pot_min, adr_eeprom_pot_neutre);
 
 void setup()
 {
+  int tempo_calib;
   Serial.begin(9600);                              // start serial for output
-  
   delay(3000);                                     // pour attendre que l'on ouvre l'afficheur série
   if (debug)
-    Serial.println("Treuil-Handi");
-  
+    {Serial.println("Treuil-Handi");}
   treuil_1.init(adr_enc1, adr_eeprom_nb_tour_pot, adr_enc2, adr_eeprom_nb_tour_treuil, moteur_pin, moteur_pwm_pin, moteur_left_pin, moteur_right_pin);
   pinMode(led_pin, OUTPUT);
-}
-
-void loop()
-{
-  float r,t;
-  int tempo_calib, i=0;
-  
+  treuil_1.moteur_treuil.beep(2);
+  treuil_1.moteur_treuil.beep(1);
+//---  calibration
   tempo_calib = 0;
   while(tempo_calib < 500)                                  // phase calibration
   {
@@ -50,16 +46,29 @@ void loop()
     if (tempo_calib % 20 == 1)
     {    digitalWrite(led_pin, !digitalRead(led_pin));}     // clignotement de la led pendant toute la durée
   }                                                         // où la calibration peut être déclenchée
-  
-  digitalWrite(led_pin, HIGH);                              // led allumée
-  
-   while(1) //marche normale
+//---  fin calibration  
+  ee_lit(adr_eeprom_mode, (char*)&treuil_1.mode, 4);  // rappel du mode
+  if ((treuil_1.mode != 0) && (treuil_1.mode != 1))   // pour le 1er lancement on ne connait aps l'état de l'eeprom
+    {treuil_1.mode = 0;}
+  if (treuil_1.mode)
+    {digitalWrite(led_pin, HIGH);}
+  else
+    {digitalWrite(led_pin, LOW);}
+  treuil_1.moteur_treuil.beep(2);
+}
+
+void loop()
+{
+  float r,t;  
+  int i;
+  while(1) //marche normale
   {
     treuil_1.marche();
     if (!digitalRead(boutton_pin))
     {
       delay(500);
       treuil_1.mode = 1- treuil_1.mode;
+      ee_ecrit(adr_eeprom_mode, (char*)&treuil_1.mode, 4);  // sauvegarde du mode
       if (!treuil_1.mode)                                   // clignote 1 fois pour mode vitesse,
       {                                                     //  2 fois pour mode position
         digitalWrite(led_pin, LOW);
